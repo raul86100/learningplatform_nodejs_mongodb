@@ -8,7 +8,8 @@ const port = 5000;
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use("/user",require('./routes/Mentorroute'));
+app.use("/mentor",require('./routes/Mentorroute'));
+app.use("/user",require('./routes/userroute'))
 app.use(cors());
 mongoose.connect("mongodb://localhost:27017/learningapplication");
 

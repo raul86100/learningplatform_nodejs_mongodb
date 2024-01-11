@@ -1,12 +1,22 @@
 const mongoose=require('mongoose')
 const Schema=mongoose.Schema;
 const chapterSchema=new Schema({
+    moduleno:{
+        type:Number
+    },
+    courseId:{
+type:String
+    },
     name:{
-type:String,unique: true 
+type:String
     },
     link:{
         type:String
+            },
+            chapterno:{
+                type:Number
             }
+
     
    
     

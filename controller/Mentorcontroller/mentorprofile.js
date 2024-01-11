@@ -6,7 +6,7 @@ const mentorsignup = (req, res, next) => {
       res.send("created in database");
     })
     .catch((err) => {
-      console.log(err);
+      res.send("email Id is already exist");
     });
 };
 

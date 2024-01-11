@@ -1,16 +1,18 @@
 const {Router}=require('express')
 const controller=require('../controller/Usercontroller/getallcourse')
+const usercontroller=require('../controller/Usercontroller/Userdetails')
 
 
 const router=Router();
 
 router.get('/getallcourse',controller.getallcourse)
 router.get('/getbycourseId',controller.getbycourseId)
-router.post('/endrollcourse')
-router.post('/completed')
+router.post('/endrollingcourse',usercontroller.endrollingcall)
+router.post('/completingcourse',)
 
 router.get("/getuserdetails")
-router.post("/createprofile")
+router.post("/signup",usercontroller.usersignup)
+router.post("/login",usercontroller.login)
 
 
 module.exports=router;

@@ -4,7 +4,7 @@ const coursemodulemodel = require("../../model/coursemodule");
 const chaptermodel = require("../../model/chapterinfo");
 
 const createcourse = async (req, res, next) => {
-  const { coursename, autheremail, coursemodule ,courseprice} = req.body;
+  const { coursename, autheremail, coursemodule ,courseprice,Description} = req.body;
   // const autherdetails= await authermodel.findOne({email:autheremail});
   const course = await coursemodel.create({
     coursename: coursename,
@@ -14,6 +14,7 @@ const createcourse = async (req, res, next) => {
     completeduser: [],
     approvestatus: false,
     activestatus: false,
+    Description:Description
   });
 //   console.log(course);
   coursemodule.map(async (item, index) => {

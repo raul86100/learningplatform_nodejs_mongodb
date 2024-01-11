@@ -20,6 +20,7 @@ const getbycourseId = async (req, res, next) => {
     coursename: couinfo.coursename,
     courseauther:{name:auther.name,email:auther.email} ,
     numberofmodules:mymodule.length,
+    description:couinfo.Description,
     module: [],
   };
 

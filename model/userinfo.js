@@ -10,6 +10,12 @@ type:String,unique: true
     password:{
         type:String
     },
+    mobile:{
+type:String,unique: true
+    },
+    role:{
+        type:String
+    },
     endrolledcouse:[{type:String}],
     completedcourse:[{type:String}]
     

@@ -13,6 +13,7 @@ const courseinfoSchema = new Schema(
     autherdetails: {type:String }
         
     ,
+    Description:{type:String},
     endrolleduser: [{
       type: String
     }],

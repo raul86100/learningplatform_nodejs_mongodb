@@ -34,14 +34,7 @@ const endrollingcall = async (req, res, next) => {
     .then((data) => {
       return data;
     });
-  //     const courseshowdetails={_id:coursedetails._id,
-  //     courseId: coursedetails.courseId,
-  //     coursename: coursedetails.coursename,
-  //     courseprice:coursedetails.courseprice,
-  //     autherdetails: coursedetails.autherdetails,
-  //     Description: coursedetails.Description,
-  //     createddate:coursedetails.createdAt
-  // }
+  
   endrollarray.endrolledcouse.push(coursedetails.courseId);
 
   await usermodel
@@ -59,11 +52,14 @@ const endrollingcall = async (req, res, next) => {
 
 const completingcall = async (req, res, next) => {
   const { email, courseId } = req.body;
-var endroll=[];
-var completed=[] ; 
-const userdata = await usermodel.findOne({ email: email }).then((data) => {
+  const userdata = await usermodel.findOne({ email: email }).then((data) => {
     return data;
   });
+var endroll=[];
+var completed=userdata.completedcourse;
+
+
+
 
   userdata.endrolledcouse.map((item,index)=>{
     if(item!==courseId){

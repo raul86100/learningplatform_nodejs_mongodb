@@ -1,29 +1,80 @@
-const usermodel=require('../../model/userinfo')
+const usermodel = require("../../model/userinfo");
+const courseinfo = require("../../model/courseinfo");
 
+const usersignup = (req, res, next) => {
+  usermodel
+    .create(req.body)
+    .then(() => {
+      res.send("Usercreated in database");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  const data = await usermodel.findOne({ email: email });
+  if (password === data.password) {
+    res.send(data);
+  } else {
+    res.send("invalid");
+  }
+};
 
-const usersignup=(req,res,next)=>{
-    usermodel.create(req.body).then(()=>{res.send("Usercreated in database")}).catch((err)=>{console.log(err)});
+const endrollingcall = async (req, res, next) => {
+  const { email, courseId } = req.body;
+  const endrollarray = await usermodel
+    .findOne({ email: email })
+    .then((data) => {
+      return data;
+    });
+  const coursedetails = await courseinfo
+    .findOne({ courseId: courseId })
+    .then((data) => {
+      return data;
+    });
+  //     const courseshowdetails={_id:coursedetails._id,
+  //     courseId: coursedetails.courseId,
+  //     coursename: coursedetails.coursename,
+  //     courseprice:coursedetails.courseprice,
+  //     autherdetails: coursedetails.autherdetails,
+  //     Description: coursedetails.Description,
+  //     createddate:coursedetails.createdAt
+  // }
+  endrollarray.endrolledcouse.push(coursedetails.courseId);
 
-}
+  await usermodel
+    .updateOne(
+      { email: email },
+      {
+      
+        endrolledcouse: endrollarray.endrolledcouse,
+      }
+    )
+    .then(() => {
+      res.send("course endrolled successfully");
+    });
+};
 
-const login=async(req,res,next)=>{
-    const {email,password}=req.body;
-   const data=await usermodel.findOne({email:email});
-   if(password===data.password){
-    res.send("authorized to accesss");
-   }
-   else{
-   res.send("invalid");}
-}
+const completingcall = async (req, res, next) => {
+  const { email, courseId } = req.body;
+var endroll=[];
+var completed=[] ; 
+const userdata = await usermodel.findOne({ email: email }).then((data) => {
+    return data;
+  });
 
+  userdata.endrolledcouse.map((item,index)=>{
+    if(item!==courseId){
+endroll.push(item);
+    }
+    else{
+        completed.push(item);
+    }
+  })
+  
+  usermodel.updateOne({email:email},{endrolledcouse:endroll,completedcourse:completed}).then(()=>{res.send("course complted")})
+};
 
-const endrollingcall=(req,res,next)=>{
-
-}
-
-const completingcall=(req,res,next)=>{
-
-}
-
-module.exports={usersignup,login,endrollingcall,completingcall}
+module.exports = { usersignup, login, endrollingcall, completingcall };

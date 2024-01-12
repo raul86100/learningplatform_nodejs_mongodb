@@ -8,7 +8,7 @@ const router=Router();
 router.get('/getallcourse',controller.getallcourse)
 router.get('/getbycourseId',controller.getbycourseId)
 router.post('/endrollingcourse',usercontroller.endrollingcall)
-router.post('/completingcourse',)
+router.post('/completingcourse',usercontroller.completingcall)
 
 router.get("/getuserdetails")
 router.post("/signup",usercontroller.usersignup)

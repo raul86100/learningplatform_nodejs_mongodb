@@ -16,7 +16,7 @@ type:String,unique: true
     role:{
         type:String
     },
-    endrolledcouse:[{type:String}],
+    endrolledcouse:[{type:Schema.Types.Mixed}],
     completedcourse:[{type:String}]
     
 },{timestamps:true});

@@ -13,6 +13,7 @@ router.post('/completingcourse',usercontroller.completingcall)
 router.get("/getuserdetails")
 router.post("/signup",usercontroller.usersignup)
 router.post("/login",usercontroller.login)
+router.get("/showendrollcourseandcompleted",usercontroller.showendrollcourseandcompleted)
 
 
 module.exports=router;

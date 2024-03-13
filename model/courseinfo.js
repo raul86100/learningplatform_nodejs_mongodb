@@ -5,7 +5,6 @@ const crypto = require('crypto');
 
 const courseinfoSchema = new Schema(
   {
-    courseId: { type:String,default:crypto.randomBytes(32).toString('hex'),unique:true},
     coursename: {
       type: String,
     },

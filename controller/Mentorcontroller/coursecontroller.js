@@ -16,17 +16,17 @@ const createcourse = async (req, res, next) => {
     activestatus: false,
     Description:Description
   });
-//   console.log(course);
-  coursemodule.map(async (item, index) => {
+
+  await coursemodule.map(async (item, index) => {
     const tempmodule = await coursemodulemodel.create({
-      courseId: course.courseId,
+      courseId: course._id,
       moduleno: index + 1,
+      moduletitle:item.title
     });
-    // console.log(tempmodule);
-    item.module.map(async (chapteritem, no) => {
+   
+   await item.chapter.forEach(async (chapteritem, no) => {
       await chaptermodel.create({
-        moduleno: tempmodule.moduleno,
-        courseId: tempmodule.courseId,
+        moduleId: tempmodule._id,
         name: chapteritem.name,
         link: chapteritem.link,
         chapterno:no+1

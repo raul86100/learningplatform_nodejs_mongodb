@@ -2,7 +2,8 @@ const courseinfomodel = require("../../model/courseinfo");
 const modulemodel = require("../../model/coursemodule");
 const chaptermodel = require("../../model/chapterinfo");
 const coursemodule = require("../../model/coursemodule");
-const autherinfo=require("../../model/authorinfo")
+const autherinfo = require("../../model/authorinfo");
+const chapter = require("../../model/chapterinfo");
 
 const getallcourse = async (req, res, next) => {
   await courseinfomodel.find().then((data) => {
@@ -12,34 +13,36 @@ const getallcourse = async (req, res, next) => {
 
 const getbycourseId = async (req, res, next) => {
   const { courseId } = req.body;
-  const couinfo = await courseinfomodel.findOne({ courseId: courseId });
+  const couinfo = await courseinfomodel.findOne({ _id: courseId });
   const mymodule = await modulemodel.find({ courseId: courseId });
-  const auther=await autherinfo.findOne({email:couinfo.autherdetails});
+  const auther = await autherinfo.findOne({ email: couinfo.autherdetails });
 
   const fullcourse = await {
     coursename: couinfo.coursename,
-    courseauther:{name:auther.name,email:auther.email} ,
-    numberofmodules:mymodule.length,
-    description:couinfo.Description,
-    module: [],
+    courseauther: { name: auther.name, email: auther.email },
+    numberofmodules: mymodule.length,
+    description: couinfo.Description,
+    modules: [],
   };
 
-  await mymodule.map(async (item, index) => {
+  await mymodule.forEach(async (item, index) => {
+    const newmodule = {
+      title: item.moduletitle,
+      chapters: [],
+    };
     const chapter = await chaptermodel.find({
-      courseId: item.courseId,
-      moduleno: item.moduleno,
+      moduleId: item._id,
     });
-   await chapter.map(async (lesson, inx) => {
-      fullcourse.module.push(lesson);
-      if(mymodule.length===index+1 && chapter.length===inx+1){
-         res.send(fullcourse);
-      }
-
+    await chapter.forEach(async (lesson) => {
+      newmodule.chapters.push(lesson);
     });
 
-
-  })
-  
+    await fullcourse.modules.push(newmodule);
+   if(mymodule.length===index+1){
+    res.send(fullcourse);
+   }
+  });
+ 
 };
 
 module.exports = { getallcourse, getbycourseId };

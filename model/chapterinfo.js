@@ -1,25 +1,22 @@
-const mongoose=require('mongoose')
-const Schema=mongoose.Schema;
-const chapterSchema=new Schema({
-    moduleno:{
-        type:Number
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const chapterSchema = new Schema(
+  {
+    moduleId: {
+      type:String,unique:false,
     },
-    courseId:{
-type:String
-    },
-    name:{
-type:String
-    },
-    link:{
-        type:String
-            },
-            chapterno:{
-                type:Number
-            }
 
-    
-   
-    
-},{timestamps:true});
-const chapter=mongoose.model('chapterinfo',chapterSchema);
-module.exports=chapter;
+    name: {
+      type: String,
+    },
+    link: {
+      type: String,
+    },
+    chapterno: {
+      type: Number,
+    },
+  },
+  { timestamps: true }
+);
+const chapter = mongoose.model("chapterinfo", chapterSchema);
+module.exports = chapter;

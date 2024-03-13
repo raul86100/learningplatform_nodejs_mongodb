@@ -12,6 +12,7 @@ app.use("/mentor",require('./routes/Mentorroute'));
 app.use("/user",require('./routes/userroute'))
 app.use(cors());
 mongoose.connect("mongodb://localhost:27017/learningapplication");
+// mongoose.connect("mongodb+srv://ragul86100:H81NNozAF2h1ulw2@learningcluster.7vorbma.mongodb.net/?retryWrites=true&w=majority&appName=LearningCluster/learningapplication");
 
 const db = mongoose.connection;
 db.on('error', (error) => {
